@@ -225,6 +225,8 @@
 //关闭后的操作
 				});
 				//	关闭layer
+
+				window.location.href='${APP_PATH}/pm/user'
 			},
 			error:function (result) {
 				layer.closeAll('loading');

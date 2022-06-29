@@ -8,6 +8,7 @@
                 loginacct like concat('%',#{loginAcct},'%')
             </if>
         </where>
+        order by createdate DESC
         limit
         #{startNo},#{pageSize}
     </select>
@@ -22,8 +23,8 @@
     </select>
 
     <insert id="insertUser" parameterType="com.lls.pojo.User">
-        insert into t_user(username, loginacct, password,email)
-            values (#{username},#{loginacct},#{password},#{email})
+        insert into t_user(username, loginacct, password,email,createdate)
+            values (#{username},#{loginacct},#{password},#{email},#{createdate})
     </insert>
 
 </mapper>

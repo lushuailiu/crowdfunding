@@ -7,6 +7,8 @@ import com.lls.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -74,6 +76,11 @@ public class UserServiceImpl implements UserService {
 
     public void addUser(User user) {
         user.setPassword("123456");
+        Date date = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String createDate = simpleDateFormat.format(date);
+        user.setCreatedate(createDate);
+
         userDao.insertUser(user);
     }
 }
