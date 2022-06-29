@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lls.dao.UserDao">
+    <select id="queryFuzzy" resultType="com.lls.pojo.User" parameterType="Map">
+        SELECT * from t_user
+        <where>
+            <if test="#{loginAcct} != null">
+                loginacct like concat('%',#{loginAcct},'%')
+            </if>
+        </where>
+        limit
+        #{startNo},#{pageSize}
+    </select>
+
+    <select id="queryFuzzyCount" resultType="int" parameterType="Map">
+        SELECT count(1) from t_user
+        <where>
+            <if test="#{loginAcct} != null">
+                loginacct like concat('%',#{loginAcct},'%')
+            </if>
+        </where>
+    </select>
+
+    <insert id="insertUser" parameterType="com.lls.pojo.User">
+        insert into t_user(username, loginacct, password,email)
+            values (#{username},#{loginacct},#{password},#{email})
+    </insert>
+
+</mapper>
