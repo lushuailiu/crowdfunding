@@ -38,5 +38,21 @@ public class UserController {
         userService.addUser(user);
     }
 
+    @RequestMapping(value = "/delete",method = RequestMethod.DELETE)
+    @ResponseBody
+    public int delete(Integer id){
+        return userService.deleteById(id);
+    }
 
+    @RequestMapping(value = "/deleteMore",method = RequestMethod.DELETE)
+    @ResponseBody
+    public int deleteMore(@RequestParam("ids[]") Integer[] ids){
+        return userService.deleteMore(ids);
+    }
+
+    @RequestMapping(value = "/update",method = RequestMethod.PUT)
+    @ResponseBody
+    public int update(User user){
+        return userService.Update(user);
+    }
 }

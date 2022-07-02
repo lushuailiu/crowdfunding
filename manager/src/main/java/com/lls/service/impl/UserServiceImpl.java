@@ -83,4 +83,18 @@ public class UserServiceImpl implements UserService {
 
         userDao.insertUser(user);
     }
+
+    public int deleteById(Integer id) {
+       return userDao.deleteById(id);
+    }
+
+    public int deleteMore(Integer[] ids) {
+        int num = userDao.deleteMore(ids);
+        return num;
+    }
+
+    public int Update(User user) {
+        return userDao.updateUser(user);
+    }
+
 }

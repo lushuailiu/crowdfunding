@@ -27,4 +27,10 @@ public interface UserDao {
 
 
     void insertUser(User user);
+
+    int deleteById(Integer id);
+
+    int deleteMore(Integer[] ids);
+
+    int updateUser(User user);
 }

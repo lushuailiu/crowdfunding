@@ -152,8 +152,8 @@
                         <button type="button" class="btn btn-warning" onclick="pageQuery(1)"><i class="glyphicon glyphicon-search"></i> 查询
                         </button>
                     </form>
-                    <button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"><i
-                            class=" glyphicon glyphicon-remove"></i> 删除
+                    <button type="button" class="btn btn-danger" style="float:right;margin-left:10px;" onclick="deleteMore()"><i
+                            class=" glyphicon glyphicon-remove" ></i> 删除
                     </button>
                     <button type="button" class="btn btn-primary" style="float:right;"
                             onclick="window.location.href='${APP_PATH}/pm/user/add'"><i class="glyphicon glyphicon-plus"></i>新增
@@ -165,7 +165,7 @@
                             <thead>
                             <tr>
                                 <th width="30">#</th>
-                                <th width="30"><input type="checkbox"></th>
+                                <th width="30"><input type="checkbox" onclick="checkAll(this)"></th>
                                 <th>账号</th>
                                 <th>名称</th>
                                 <th>邮箱地址</th>
@@ -207,30 +207,14 @@
 <script src="${APP_PATH}/jquery/jquery-2.1.1.min.js"></script>
 <script src="${APP_PATH}/bootstrap/js/bootstrap.min.js"></script>
 <script src="${APP_PATH}/script/docs.min.js"></script>
-<script type="text/javascript">
-    $(function () {
-        $(".list-group-item").click(function () {
-            if ($(this).find("ul")) {
-                $(this).toggleClass("tree-closed");
-                if ($(this).hasClass("tree-closed")) {
-                    $("ul", this).hide("fast");
-                } else {
-                    $("ul", this).show("fast");
-                }
-            }
-        });
-        pageQuery(1)
-    });
-    $("tbody .btn-success").click(function () {
-        window.location.href = "assignRole.html";
-    });
-    $("tbody .btn-primary").click(function () {
-        window.location.href = "edit.html";
-    });
+<script src="${APP_PATH}/script/layer.js"></script>
 
+<script type="text/javascript">
+
+    var page;
     //分页查询
     function pageQuery(pageNo) {
-
+        page = pageNo;
         var loginAcct = $("#loginAcct").val();
 
         var loadingIndex = null;
@@ -255,14 +239,14 @@
                 $.each(users, function (i, user) {
                     tableContext += '<tr>'
                     tableContext += '  <td>' + (i + 1) + '</td>'
-                    tableContext += '  <td><input type="checkbox"></td>'
+                    tableContext += '  <td><input type="checkbox" name="id" value="'+user.id+'"></td>'
                     tableContext += ' <td>' + user.loginacct + '</td>'
                     tableContext += ' <td>' + user.username + '</td>'
                     tableContext += ' <td>' + user.email + '</td>'
                     tableContext += '  <td>'
                     tableContext += '	  <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>'
                     tableContext += '	  <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>'
-                    tableContext += '	  <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>'
+                    tableContext += '	  <button type="button" class="btn btn-danger btn-xs" onclick="deleteUser('+JSON.stringify(user)+')"><i class=" glyphicon glyphicon-remove"></i></button>'
                     tableContext += '  </td>'
                     tableContext += '</tr>'
                 })
@@ -291,6 +275,120 @@
             }
         })
     }
+
+    function checkAll(val){
+        if (val.checked) {
+            $('input[name="id"]').each(function () {
+                this.checked = true;
+            })
+        } else {
+            $('input[name="id"]').each(function () {
+                this.checked = false;
+            })
+        }
+    }
+
+
+    function deleteMore(){
+
+
+
+        let arr = [];
+        $('input[name="id"]:checked').each(function(){
+            arr.push($(this).val());
+        });
+
+        if (arr.length > 0 ){
+            layer.confirm('确认要删除选中的用户吗？', {
+                btn: ['确认','取消'] //按钮
+            }, function(){
+                $.ajax({
+                    type: "POST",
+                    url: "${APP_PATH}/user/deleteMore",
+                    data: {
+                        "ids":arr,
+                        "_method":"DELETE"
+                    },
+                    beforeSend: function () {
+                        //	layer处理中
+                        layer.load(1);
+                    },
+                    success: function (result) {
+                        layer.closeAll('loading');
+
+                        layer.msg('删除成功', {icon: 1});
+
+                        pageQuery(page);
+                    },
+                    error:function (result) {
+                        layer.closeAll('loading');
+                        layer.msg('删除失败',{icon:2})
+                    }
+                })
+            }, function(){
+
+            });
+
+        } else {
+            layer.msg('至少选中一个user', {icon: 5});
+        }
+    }
+
+    function deleteUser(user){
+
+        layer.confirm('确认删除用户【'+ user.username +'】',{
+            btn: ['确认','取消']
+        },function (){
+            $.ajax({
+                type: "POST",
+                url: "${APP_PATH}/user/delete",
+                data: {
+                    "id":user.id,
+                    "_method":"DELETE"
+                },
+                beforeSend: function () {
+                    //	layer处理中
+                    layer.load(1);
+                },
+                success: function (result) {
+                    layer.closeAll('loading');
+
+                    layer.msg('删除成功', {icon: 1});
+
+                    pageQuery(page);
+                },
+                error:function (result) {
+                    layer.closeAll('loading');
+                    layer.msg('删除失败',{icon:2})
+                }
+            })
+        },function (){
+
+        })
+    }
+
+    $(function () {
+        $(".list-group-item").click(function () {
+            if ($(this).find("ul")) {
+                $(this).toggleClass("tree-closed");
+                if ($(this).hasClass("tree-closed")) {
+                    $("ul", this).hide("fast");
+                } else {
+                    $("ul", this).show("fast");
+                }
+            }
+        });
+        pageQuery(1)
+
+    });
+    $("tbody .btn-success").click(function () {
+        window.location.href = "assignRole.html";
+    });
+    $("tbody .btn-primary").click(function () {
+        window.location.href = "edit.html";
+    });
+
+
 </script>
 </body>
 </html>

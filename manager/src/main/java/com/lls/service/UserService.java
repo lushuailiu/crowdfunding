@@ -16,4 +16,10 @@ public interface UserService {
 
 
     void addUser(User user);
+
+    int deleteById(Integer id);
+
+    int deleteMore(Integer[] ids);
+
+    int Update(User user);
 }
