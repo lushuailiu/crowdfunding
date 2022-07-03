@@ -34,7 +34,7 @@
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
-            <div><a class="navbar-brand" style="font-size:32px;" href="#">众筹平台 - 用户维护</a></div>
+            <div><a class="navbar-brand" style="font-size:32px;" href="${APP_PATH}/pm/user">众筹平台 - 用户维护</a></div>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
@@ -146,17 +146,21 @@
                         <div class="form-group has-feedback">
                             <div class="input-group">
                                 <div class="input-group-addon">查询条件</div>
-                                <input id="loginAcct" class="form-control has-success" type="text" placeholder="请输入查询条件">
+                                <input id="loginAcct" class="form-control has-success" type="text"
+                                       placeholder="请输入查询条件">
                             </div>
                         </div>
-                        <button type="button" class="btn btn-warning" onclick="pageQuery(1)"><i class="glyphicon glyphicon-search"></i> 查询
+                        <button type="button" class="btn btn-warning" onclick="pageQuery(1)"><i
+                                class="glyphicon glyphicon-search"></i> 查询
                         </button>
                     </form>
-                    <button type="button" class="btn btn-danger" style="float:right;margin-left:10px;" onclick="deleteMore()"><i
-                            class=" glyphicon glyphicon-remove" ></i> 删除
+                    <button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"
+                            onclick="deleteMore()"><i
+                            class=" glyphicon glyphicon-remove"></i> 删除
                     </button>
                     <button type="button" class="btn btn-primary" style="float:right;"
-                            onclick="window.location.href='${APP_PATH}/pm/user/add'"><i class="glyphicon glyphicon-plus"></i>新增
+                            onclick="window.location.href='${APP_PATH}/pm/user/add'"><i
+                            class="glyphicon glyphicon-plus"></i>新增
                     </button>
                     <br>
                     <hr style="clear:both;">
@@ -212,6 +216,7 @@
 <script type="text/javascript">
 
     var page;
+
     //分页查询
     function pageQuery(pageNo) {
         page = pageNo;
@@ -224,7 +229,7 @@
             data: {
                 "pageNo": pageNo,
                 "pageSize": 5,
-                "loginAcct":loginAcct
+                "loginAcct": loginAcct
             },
             beforeSend: function () {
 
@@ -237,16 +242,18 @@
 
                 var users = result.list;
                 $.each(users, function (i, user) {
+                    let u = JSON.stringify(user);
+                    let queryByidUrl = 'window.location.href="${APP_PATH}/pm/user/queryById?id=';
                     tableContext += '<tr>'
                     tableContext += '  <td>' + (i + 1) + '</td>'
-                    tableContext += '  <td><input type="checkbox" name="id" value="'+user.id+'"></td>'
+                    tableContext += '  <td><input type="checkbox" name="id" value="' + user.id + '"></td>'
                     tableContext += ' <td>' + user.loginacct + '</td>'
                     tableContext += ' <td>' + user.username + '</td>'
                     tableContext += ' <td>' + user.email + '</td>'
                     tableContext += '  <td>'
                     tableContext += '	  <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>'
-                    tableContext += '	  <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>'
-                    tableContext += '	  <button type="button" class="btn btn-danger btn-xs" onclick="deleteUser('+JSON.stringify(user)+')"><i class=" glyphicon glyphicon-remove"></i></button>'
+                    tableContext += '	  <button type="button" class="btn btn-primary btn-xs" onclick=' + queryByidUrl + user.id + '"><i class=" glyphicon glyphicon-pencil"></i></button>'
+                    tableContext += '	  <button type="button" class="btn btn-danger btn-xs" onclick=\'deleteUser(' + u + ')\'><i class=" glyphicon glyphicon-remove"></i></button>'
                     tableContext += '  </td>'
                     tableContext += '</tr>'
                 })
@@ -255,11 +262,11 @@
                     pageContext += '<li><a href="#" onclick="pageQuery(' + (pageNo - 1) + ')">上一页</a></li>';
                 }
 
-                for (var i=1;i<=result.totalPage;i++) {
-                    if ( i == pageNo){
-                        pageContext += '<li class="active"><a  href="#" onclick="pageQuery(' + i + ')">'+ i +'</a></li>';
+                for (var i = 1; i <= result.totalPage; i++) {
+                    if (i == pageNo) {
+                        pageContext += '<li class="active"><a  href="#" onclick="pageQuery(' + i + ')">' + i + '</a></li>';
                     } else {
-                        pageContext += '<li><a href="#" onclick="pageQuery(' + i + ')">'+i+'</a></li>';
+                        pageContext += '<li><a href="#" onclick="pageQuery(' + i + ')">' + i + '</a></li>';
                     }
                 }
 
@@ -276,7 +283,7 @@
         })
     }
 
-    function checkAll(val){
+    function checkAll(val) {
         if (val.checked) {
             $('input[name="id"]').each(function () {
                 this.checked = true;
@@ -289,25 +296,24 @@
     }
 
 
-    function deleteMore(){
-
+    function deleteMore() {
 
 
         let arr = [];
-        $('input[name="id"]:checked').each(function(){
+        $('input[name="id"]:checked').each(function () {
             arr.push($(this).val());
         });
 
-        if (arr.length > 0 ){
+        if (arr.length > 0) {
             layer.confirm('确认要删除选中的用户吗？', {
-                btn: ['确认','取消'] //按钮
-            }, function(){
+                btn: ['确认', '取消'] //按钮
+            }, function () {
                 $.ajax({
                     type: "POST",
                     url: "${APP_PATH}/user/deleteMore",
                     data: {
-                        "ids":arr,
-                        "_method":"DELETE"
+                        "ids": arr,
+                        "_method": "DELETE"
                     },
                     beforeSend: function () {
                         //	layer处理中
@@ -320,12 +326,12 @@
 
                         pageQuery(page);
                     },
-                    error:function (result) {
+                    error: function (result) {
                         layer.closeAll('loading');
-                        layer.msg('删除失败',{icon:2})
+                        layer.msg('删除失败', {icon: 2})
                     }
                 })
-            }, function(){
+            }, function () {
 
             });
 
@@ -334,17 +340,17 @@
         }
     }
 
-    function deleteUser(user){
+    function deleteUser(user) {
 
-        layer.confirm('确认删除用户【'+ user.username +'】',{
-            btn: ['确认','取消']
-        },function (){
+        layer.confirm('确认删除用户【' + user.username + '】', {
+            btn: ['确认', '取消']
+        }, function () {
             $.ajax({
                 type: "POST",
                 url: "${APP_PATH}/user/delete",
                 data: {
-                    "id":user.id,
-                    "_method":"DELETE"
+                    "id": user.id,
+                    "_method": "DELETE"
                 },
                 beforeSend: function () {
                     //	layer处理中
@@ -357,12 +363,12 @@
 
                     pageQuery(page);
                 },
-                error:function (result) {
+                error: function (result) {
                     layer.closeAll('loading');
-                    layer.msg('删除失败',{icon:2})
+                    layer.msg('删除失败', {icon: 2})
                 }
             })
-        },function (){
+        }, function () {
 
         })
     }

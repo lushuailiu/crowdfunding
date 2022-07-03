@@ -1,58 +1,59 @@
 package com.lls.controller;
 
 import com.lls.pojo.Page;
-import com.lls.pojo.User;
-import com.lls.service.UserService;
+import com.lls.pojo.Role;
+import com.lls.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/role")
+public class RoleController {
+
 
 
     @Autowired
-    UserService userService;
+    RoleService roleService;
 
-    @RequestMapping("/userList1")
+    @RequestMapping("/roleList1")
     @ResponseBody
-    public Page<User> userList1(@RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+    public Page<Role> roleList1(@RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                 @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
-        Page<User> pageList = userService.queryWithPage(pageNo, pageSize);
+        Page<Role> pageList = roleService.queryWithPage(pageNo, pageSize);
         return pageList;
     }
 
-    @RequestMapping("/userList2")
+    @RequestMapping("/roleList2")
     @ResponseBody
-    public Page<User> userList2(@RequestParam(value = "loginAcct", required = false) String loginAcct,
+    public Page<Role> roleList2(@RequestParam(value = "role", required = false) String role,
                                 @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                 @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
-        Page<User> pageList = userService.queryFuzzy(loginAcct, pageNo, pageSize);
+        Page<Role> pageList = roleService.queryFuzzy(role, pageNo, pageSize);
         return pageList;
     }
 
-    @RequestMapping(value = "/adduser",method = RequestMethod.POST)
+    @RequestMapping(value = "/addrole",method = RequestMethod.POST)
     @ResponseBody
-    public void addUser( User user) {
-        userService.addUser(user);
+    public void addRole( Role role) {
+        roleService.addRole(role);
     }
 
     @RequestMapping(value = "/delete",method = RequestMethod.DELETE)
     @ResponseBody
     public int delete(Integer id){
-        return userService.deleteById(id);
+        return roleService.deleteById(id);
     }
 
     @RequestMapping(value = "/deleteMore",method = RequestMethod.DELETE)
     @ResponseBody
     public int deleteMore(@RequestParam("ids[]") Integer[] ids){
-        return userService.deleteMore(ids);
+        return roleService.deleteMore(ids);
     }
 
     @RequestMapping(value = "/update",method = RequestMethod.POST)
     @ResponseBody
-    public int update(@RequestBody User user){
-        return userService.Update(user);
+    public int update(@RequestBody Role role){
+        return roleService.Update(role);
     }
 }

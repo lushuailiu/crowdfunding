@@ -94,7 +94,16 @@ public class UserServiceImpl implements UserService {
     }
 
     public int Update(User user) {
+
+        User u = userDao.queryById(user.getId());
+        u.setLoginacct(user.getLoginacct());
+        u.setUsername(user.getUsername());
+        u.setEmail(user.getEmail());
         return userDao.updateUser(user);
+    }
+
+    public User queryById(Integer id) {
+        return userDao.queryById(id);
     }
 
 }

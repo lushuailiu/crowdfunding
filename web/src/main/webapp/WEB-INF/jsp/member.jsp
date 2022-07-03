@@ -67,7 +67,7 @@
                     <li><a href="member.jsp"><i class="glyphicon glyphicon-scale"></i> 会员中心</a></li>
                     <li><a href="#"><i class="glyphicon glyphicon-comment"></i> 消息</a></li>
                     <li class="divider"></li>
-                    <li><a href="index.html"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
+                    <li><a href="${APP_PATH}/logout"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
                   </ul>
                 </li>
               </ul>

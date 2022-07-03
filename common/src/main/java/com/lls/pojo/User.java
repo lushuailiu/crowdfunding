@@ -1,19 +1,25 @@
 package com.lls.pojo;
 
 import org.apache.ibatis.type.Alias;
+import org.codehaus.jackson.annotate.JsonProperty;
 
 
 public class User {
-
+    @JsonProperty(value = "id")
     private Integer id;
+    @JsonProperty(value = "loginacct")
 
     private String loginacct;
+    @JsonProperty(value = "password")
 
     private String password;
+    @JsonProperty(value = "username")
 
     private String username;
+    @JsonProperty(value = "email")
 
     private String email;
+    @JsonProperty(value = "createdate")
 
     private String createdate;
 

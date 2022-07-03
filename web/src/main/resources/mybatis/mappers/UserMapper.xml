@@ -42,4 +42,8 @@
         update t_user set username = #{username}, loginacct = #{loginacct}, email = #{email}
         where id = #{id}
     </update>
+
+    <select id="queryById" parameterType="int" resultType="com.lls.pojo.User">
+        select * from t_user where id = #{id}
+    </select>
 </mapper>

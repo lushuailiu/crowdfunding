@@ -22,4 +22,6 @@ public interface UserService {
     int deleteMore(Integer[] ids);
 
     int Update(User user);
+
+    User queryById(Integer id);
 }

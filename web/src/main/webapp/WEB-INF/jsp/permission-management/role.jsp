@@ -26,7 +26,7 @@
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container-fluid">
         <div class="navbar-header">
-          <div><a class="navbar-brand" style="font-size:32px;" href="#">众筹平台 - 角色维护</a></div>
+          <div><a class="navbar-brand" style="font-size:32px;" href="${APP_PATH}/pm/user">众筹平台 - 角色维护</a></div>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
@@ -134,10 +134,10 @@
   <div class="form-group has-feedback">
     <div class="input-group">
       <div class="input-group-addon">查询条件</div>
-      <input class="form-control has-success" type="text" placeholder="请输入查询条件">
+      <input class="form-control has-success" id="role" type="text" placeholder="请输入查询条件" >
     </div>
   </div>
-  <button type="button" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询</button>
+  <button type="button" class="btn btn-warning" onclick="pageQuery(1)"><i class="glyphicon glyphicon-search" ></i> 查询</button>
 </form>
 <button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"><i class=" glyphicon glyphicon-remove"></i> 删除</button>
 <button type="button" class="btn btn-primary" style="float:right;" onclick="window.location.href='form.html'"><i class="glyphicon glyphicon-plus"></i> 新增</button>
@@ -153,109 +153,15 @@
                   <th width="100">操作</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td>1</td>
-				  <td><input type="checkbox"></td>
-                  <td>PM - 项目经理</td>
-                  <td>
-				      <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>
-				      <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>
-					  <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>
-				  </td>
-                </tr>
-                <tr>
-                  <td>2</td>
-				  <td><input type="checkbox"></td>
-                  <td>SE - 软件工程师</td>
-                  <td>
-				      <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>
-				      <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>
-					  <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>
-				  </td>
-                </tr>
-                <tr>
-                  <td>3</td>
-				  <td><input type="checkbox"></td>
-                  <td>PG - 程序员</td>
-                  <td>
-				      <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>
-				      <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>
-					  <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>
-				  </td>
-                </tr>
-                <tr>
-                  <td>4</td>
-				  <td><input type="checkbox"></td>
-                  <td>TL - 组长</td>
-                  <td>
-				      <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>
-				      <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>
-					  <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>
-				  </td>
-                </tr>
-                <tr>
-                  <td>5</td>
-				  <td><input type="checkbox"></td>
-                  <td>GL - 组长</td>
-                  <td>
-				      <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>
-				      <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>
-					  <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>
-				  </td>
-                </tr>
-                <tr>
-                  <td>6</td>
-				  <td><input type="checkbox"></td>
-                  <td>QA - 品质保证</td>
-                  <td>
-				      <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>
-				      <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>
-					  <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>
-				  </td>
-                </tr>
-                <tr>
-                  <td>7</td>
-				  <td><input type="checkbox"></td>
-                  <td>QC - 品质控制</td>
-                  <td>
-				      <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>
-				      <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>
-					  <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>
-				  </td>
-                </tr>
-                <tr>
-                  <td>8</td>
-				  <td><input type="checkbox"></td>
-                  <td>SA - 软件架构师</td>
-                  <td>
-				      <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>
-				      <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>
-					  <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>
-				  </td>
-                </tr>
-                <tr>
-                  <td>8</td>
-				  <td><input type="checkbox"></td>
-                  <td>CMO / CMS - 配置管理员</td>
-                  <td>
-				      <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>
-				      <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>
-					  <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>
-				  </td>
-                </tr>
+              <tbody id="roleData">
+
+
               </tbody>
 			  <tfoot>
 			     <tr >
 				     <td colspan="6" align="center">
 						<ul class="pagination">
-								<li class="disabled"><a href="#">上一页</a></li>
-								<li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">4</a></li>
-								<li><a href="#">5</a></li>
-								<li><a href="#">下一页</a></li>
+
 							 </ul>
 					 </td>
 				 </tr>
@@ -269,11 +175,170 @@
       </div>
     </div>
 
-    <script src="jquery/jquery-2.1.1.min.js"></script>
-    <script src="bootstrap/js/bootstrap.min.js"></script>
-	<script src="script/docs.min.js"></script>
+    <script src="${APP_PATH}/jquery/jquery-2.1.1.min.js"></script>
+    <script src="${APP_PATH}/bootstrap/js/bootstrap.min.js"></script>
+	<script src="${APP_PATH}/script/docs.min.js"></script>
+	<script src="${APP_PATH}/script/layer.js"></script>
         <script type="text/javascript">
-            $(function () {
+
+			var page;
+
+			//分页查询
+			function pageQuery(pageNo) {
+				page = pageNo;
+				var role = $("#role").val();
+
+				var loadingIndex = null;
+				$.ajax({
+					type: "POST",
+					url: "${APP_PATH}/role/roleList2",
+					data: {
+						"pageNo": pageNo,
+						"pageSize": 5,
+						"role": role
+					},
+					beforeSend: function () {
+
+						//	layer处理中
+					},
+					success: function (result) {
+
+						var tableContext = "";
+						var pageContext = "";
+
+						var roles = result.list;
+						$.each(roles, function (i, role) {
+							let u = JSON.stringify(role);
+							let queryByidUrl = 'window.location.href="${APP_PATH}/pm/role/queryById?id=';
+							tableContext += '<tr>'
+							tableContext += '  <td>' + (i + 1) + '</td>'
+							tableContext += '  <td><input type="checkbox" name="id" value="' + role.id + '"></td>'
+							tableContext += ' <td>' + role.role + '</td>'
+							tableContext += '  <td>'
+							tableContext += '	  <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>'
+							tableContext += '	  <button type="button" class="btn btn-primary btn-xs" onclick=' + queryByidUrl + role.id + '"><i class=" glyphicon glyphicon-pencil"></i></button>'
+							tableContext += '	  <button type="button" class="btn btn-danger btn-xs" onclick=\'deleteRole(' + u + ')\'><i class=" glyphicon glyphicon-remove"></i></button>'
+							tableContext += '  </td>'
+							tableContext += '</tr>'
+						})
+
+						if (pageNo > 1) {
+							pageContext += '<li><a href="#" onclick="pageQuery(' + (pageNo - 1) + ')">上一页</a></li>';
+						}
+
+						for (var i = 1; i <= result.totalPage; i++) {
+							if (i == pageNo) {
+								pageContext += '<li class="active"><a  href="#" onclick="pageQuery(' + i + ')">' + i + '</a></li>';
+							} else {
+								pageContext += '<li><a href="#" onclick="pageQuery(' + i + ')">' + i + '</a></li>';
+							}
+						}
+
+						if (pageNo < result.totalPage) {
+							pageContext += '<li><a href="#" onclick="pageQuery(' + (pageNo + 1) + ')">下一页</a></li>';
+						}
+
+						$("#roleData").html(tableContext);
+
+						$(".pagination").html(pageContext)
+
+						//	关闭layer
+					}
+				})
+			}
+
+			function checkAll(val) {
+				if (val.checked) {
+					$('input[name="id"]').each(function () {
+						this.checked = true;
+					})
+				} else {
+					$('input[name="id"]').each(function () {
+						this.checked = false;
+					})
+				}
+			}
+
+
+			function deleteMore() {
+
+
+				let arr = [];
+				$('input[name="id"]:checked').each(function () {
+					arr.push($(this).val());
+				});
+
+				if (arr.length > 0) {
+					layer.confirm('确认要删除选中的用户吗？', {
+						btn: ['确认', '取消'] //按钮
+					}, function () {
+						$.ajax({
+							type: "POST",
+							url: "${APP_PATH}/role/deleteMore",
+							data: {
+								"ids": arr,
+								"_method": "DELETE"
+							},
+							beforeSend: function () {
+								//	layer处理中
+								layer.load(1);
+							},
+							success: function (result) {
+								layer.closeAll('loading');
+
+								layer.msg('删除成功', {icon: 1});
+
+								pageQuery(page);
+							},
+							error: function (result) {
+								layer.closeAll('loading');
+								layer.msg('删除失败', {icon: 2})
+							}
+						})
+					}, function () {
+
+					});
+
+				} else {
+					layer.msg('至少选中一个role', {icon: 5});
+				}
+			}
+
+			function deleteRole(role) {
+
+				layer.confirm('确认删除用户【' + role.role + '】', {
+					btn: ['确认', '取消']
+				}, function () {
+					$.ajax({
+						type: "POST",
+						url: "${APP_PATH}/role/delete",
+						data: {
+							"id": role.id,
+							"_method": "DELETE"
+						},
+						beforeSend: function () {
+							//	layer处理中
+							layer.load(1);
+						},
+						success: function (result) {
+							layer.closeAll('loading');
+
+							layer.msg('删除成功', {icon: 1});
+
+							pageQuery(page);
+						},
+						error: function (result) {
+							layer.closeAll('loading');
+							layer.msg('删除失败', {icon: 2})
+						}
+					})
+				}, function () {
+
+				})
+			}
+
+
+			$(function () {
 			    $(".list-group-item").click(function(){
 				    if ( $(this).find("ul") ) {
 						$(this).toggleClass("tree-closed");
@@ -284,6 +349,9 @@
 						}
 					}
 				});
+
+				pageQuery(1)
+
             });
             
             $("tbody .btn-success").click(function(){

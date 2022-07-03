@@ -128,27 +128,28 @@
 			<ol class="breadcrumb">
 				<li><a href="#">首页</a></li>
 				<li><a href="#">数据列表</a></li>
-				<li class="active">新增</li>
+				<li class="active">修改</li>
 			</ol>
 			<div class="panel panel-default">
 				<div class="panel-heading">表单数据<div style="float:right;cursor:pointer;" data-toggle="modal" data-target="#myModal"><i class="glyphicon glyphicon-question-sign"></i></div></div>
 				<div class="panel-body">
 					<form role="form" id="form">
+						<input type="hidden" name="id" value="${user.id}">
 						<div class="form-group">
 							<label for="loginacct">登陆账号</label>
-							<input type="text" class="form-control" id="loginacct" placeholder="请输入登陆账号">
+							<input type="text" class="form-control" id="loginacct" name="loginacct" placeholder="请输入登陆账号" value="${user.loginacct}">
 						</div>
 						<div class="form-group">
 							<label for="username">用户名称</label>
-							<input type="text" class="form-control" id="username" placeholder="请输入用户名称">
+							<input type="text" class="form-control" id="username" name="username" placeholder="请输入用户名称" value="${user.username}">
 						</div>
 						<div class="form-group">
 							<label for="email">邮箱地址</label>
-							<input type="email" class="form-control" id="email" placeholder="请输入邮箱地址">
+							<input type="email" class="form-control" id="email" name="email" placeholder="请输入邮箱地址" value="${user.email}">
 							<p class="help-block label label-warning">请输入合法的邮箱地址, 格式为： xxxx@xxxx.com</p>
 						</div>
-						<button type="button" class="btn btn-success" onclick="add()"><i class="glyphicon glyphicon-plus"></i> 新增</button>
-						<button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-refresh" onclick="form.reset()"></i> 重置</button>
+						<button type="button" class="btn btn-success" onclick="update()"><i class="glyphicon glyphicon-plus"></i> 修改</button>
+						<button type="reset" class="btn btn-danger" onclick="$('#form')[0].reset()"><i class="glyphicon glyphicon-refresh"></i> 重置</button>
 					</form>
 				</div>
 			</div>
@@ -201,18 +202,20 @@
 
 
 
-	function add(){
-		let loginacct = $("#loginacct").val();
-		let username = $("#username").val();
-		let email = $("#email").val();
+	function update(){
+		var formObject = {};
+		var formArray = $("#form").serializeArray();
+		$.each(formArray, function (i, item) {
+			formObject[item.name] = item.value;
+		});
+		var formJson = JSON.stringify(formObject);
+
 		$.ajax({
 			type: "POST",
-			url: "${APP_PATH}/user/adduser",
-			data: {
-				"loginacct": loginacct,
-				"username": username,
-				"email":email,
-			},
+			url: "${APP_PATH}/user/update",
+			contentType: "application/json;charset=utf-8",
+			dataType: "json",
+			data: formJson,
 			beforeSend: function () {
 				//	layer处理中
 				layer.load(1);

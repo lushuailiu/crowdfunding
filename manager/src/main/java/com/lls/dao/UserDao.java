@@ -33,4 +33,6 @@ public interface UserDao {
     int deleteMore(Integer[] ids);
 
     int updateUser(User user);
+
+    User queryById(Integer id);
 }
