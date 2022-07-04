@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lls.dao.UserRoleDao">
+    <insert id="addUserRoles" parameterType="map">
+        insert into t_user_role (user_id,role_id)
+        values
+        <foreach collection="roles" item="role" separator=",">
+            (#{id},#{role})
+        </foreach>
+    </insert>
+
+    <delete id="deleteUserRoles" parameterType="map">
+        delete from t_user_role where user_id = #{id} and role_id in
+        <foreach collection="roles" item="role" open="(" close=")" separator=",">
+            #{role}
+        </foreach>
+    </delete>
+</mapper>

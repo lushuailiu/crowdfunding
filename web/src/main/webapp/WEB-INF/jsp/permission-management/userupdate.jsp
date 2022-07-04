@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="GB18030">
+<html lang="zh_CN">
 <head>
-	<meta charset="GB18030">
+	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="">
@@ -33,7 +33,7 @@
 				<li style="padding-top:8px;">
 					<div class="btn-group">
 						<button type="button" class="btn btn-default btn-success dropdown-toggle" data-toggle="dropdown">
-							<i class="glyphicon glyphicon-user"></i> 张三 <span class="caret"></span>
+							<i class="glyphicon glyphicon-user"></i> ${loginUser} <span class="caret"></span>
 						</button>
 						<ul class="dropdown-menu" role="menu">
 							<li><a href="#"><i class="glyphicon glyphicon-cog"></i> 个人设置</a></li>
@@ -68,10 +68,10 @@
 						<span><i class="glyphicon glyphicon glyphicon-tasks"></i> 权限管理 <span class="badge" style="float:right">3</span></span>
 						<ul style="margin-top:10px;">
 							<li style="height:30px;">
-								<a href="${APP_PATH}/pm/user" style="color:red;"><i class="glyphicon glyphicon-user"></i> 用户维护</a>
+								<a href="${APP_PATH}/pm/user"><i class="glyphicon glyphicon-user"></i> 用户维护</a>
 							</li>
 							<li style="height:30px;">
-								<a href="${APP_PATH}/pm/user"><i class="glyphicon glyphicon-certificate"></i> 角色维护</a>
+								<a href="${APP_PATH}/pm/role" style="color:red;"><i class="glyphicon glyphicon-certificate"></i> 角色维护</a>
 							</li>
 							<li style="height:30px;">
 								<a href="permission.html"><i class="glyphicon glyphicon-lock"></i> 许可维护</a>
@@ -134,19 +134,10 @@
 				<div class="panel-heading">表单数据<div style="float:right;cursor:pointer;" data-toggle="modal" data-target="#myModal"><i class="glyphicon glyphicon-question-sign"></i></div></div>
 				<div class="panel-body">
 					<form role="form" id="form">
-						<input type="hidden" name="id" value="${user.id}">
+						<input type="hidden" name="id" value="${role.id}">
 						<div class="form-group">
-							<label for="loginacct">登陆账号</label>
-							<input type="text" class="form-control" id="loginacct" name="loginacct" placeholder="请输入登陆账号" value="${user.loginacct}">
-						</div>
-						<div class="form-group">
-							<label for="username">用户名称</label>
-							<input type="text" class="form-control" id="username" name="username" placeholder="请输入用户名称" value="${user.username}">
-						</div>
-						<div class="form-group">
-							<label for="email">邮箱地址</label>
-							<input type="email" class="form-control" id="email" name="email" placeholder="请输入邮箱地址" value="${user.email}">
-							<p class="help-block label label-warning">请输入合法的邮箱地址, 格式为： xxxx@xxxx.com</p>
+							<label for="loginacct">角色名称</label>
+							<input type="text" class="form-control" id="loginacct" name="loginacct" placeholder="请输入角色名称" value="${role.role}">
 						</div>
 						<button type="button" class="btn btn-success" onclick="update()"><i class="glyphicon glyphicon-plus"></i> 修改</button>
 						<button type="reset" class="btn btn-danger" onclick="$('#form')[0].reset()"><i class="glyphicon glyphicon-refresh"></i> 重置</button>
