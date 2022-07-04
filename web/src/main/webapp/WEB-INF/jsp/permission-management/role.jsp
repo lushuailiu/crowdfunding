@@ -26,14 +26,14 @@
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container-fluid">
         <div class="navbar-header">
-          <div><a class="navbar-brand" style="font-size:32px;" href="${APP_PATH}/pm/user">众筹平台 - 角色维护</a></div>
+          <div><a class="navbar-brand" style="font-size:32px;" href="${APP_PATH}/pm/role">众筹平台 - 角色维护</a></div>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             <li style="padding-top:8px;">
 				<div class="btn-group">
 				  <button type="button" class="btn btn-default btn-success dropdown-toggle" data-toggle="dropdown">
-					<i class="glyphicon glyphicon-user"></i> 张三 <span class="caret"></span>
+					<i class="glyphicon glyphicon-user"></i> ${loginUser} <span class="caret"></span>
 				  </button>
 					  <ul class="dropdown-menu" role="menu">
 						<li><a href="#"><i class="glyphicon glyphicon-cog"></i> 个人设置</a></li>
@@ -139,8 +139,8 @@
   </div>
   <button type="button" class="btn btn-warning" onclick="pageQuery(1)"><i class="glyphicon glyphicon-search" ></i> 查询</button>
 </form>
-<button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"><i class=" glyphicon glyphicon-remove"></i> 删除</button>
-<button type="button" class="btn btn-primary" style="float:right;" onclick="window.location.href='form.html'"><i class="glyphicon glyphicon-plus"></i> 新增</button>
+<button type="button" class="btn btn-danger" style="float:right;margin-left:10px;" onclick="deleteMore()"><i class=" glyphicon glyphicon-remove"></i> 删除</button>
+<button type="button" class="btn btn-primary" style="float:right;" onclick="window.location.href='${APP_PATH}/pm/role/add'"><i class="glyphicon glyphicon-plus"></i> 新增</button>
 <br>
  <hr style="clear:both;">
           <div class="table-responsive">
@@ -148,7 +148,7 @@
               <thead>
                 <tr >
                   <th width="30">#</th>
-				  <th width="30"><input type="checkbox"></th>
+				  <th width="30"><input type="checkbox" onclick="checkAll(this)"></th>
                   <th>名称</th>
                   <th width="100">操作</th>
                 </tr>
@@ -194,7 +194,7 @@
 					url: "${APP_PATH}/role/roleList2",
 					data: {
 						"pageNo": pageNo,
-						"pageSize": 5,
+						"pageSize": 10,
 						"role": role
 					},
 					beforeSend: function () {
@@ -286,9 +286,9 @@
 							success: function (result) {
 								layer.closeAll('loading');
 
-								layer.msg('删除成功', {icon: 1});
-
-								pageQuery(page);
+								layer.msg('删除成功', {icon: 1},function (){
+									pageQuery(page);
+								});
 							},
 							error: function (result) {
 								layer.closeAll('loading');

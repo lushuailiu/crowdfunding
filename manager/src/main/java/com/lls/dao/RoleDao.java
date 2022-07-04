@@ -8,17 +8,17 @@ import java.util.List;
 import java.util.Map;
 
 public interface RoleDao {
-    @Select("select * from t_Role")
+    @Select("select * from t_role")
     List<Role> queryAll();
 
 
-    @Select("select * from t_Role where loginacct=#{loginacct} limit 1")
+    @Select("select * from t_role where loginacct=#{loginacct} limit 1")
     Role queryByLoginAcct(Role Role);
 
-    @Select("select * from t_Role limit #{startNo},#{pageSize}")
+    @Select("select * from t_role limit #{startNo},#{pageSize}")
     List<Role> queryWithPage(@Param("startNo") Integer startNo, @Param("pageSize") Integer pageSize);
 
-    @Select("select count(1) from t_Role")
+    @Select("select count(1) from t_role")
     int queryCount();
 
     List<Role> queryFuzzy(Map map);

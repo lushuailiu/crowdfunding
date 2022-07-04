@@ -42,7 +42,7 @@
                     <div class="btn-group">
                         <button type="button" class="btn btn-default btn-success dropdown-toggle"
                                 data-toggle="dropdown">
-                            <i class="glyphicon glyphicon-user"></i> 张三 <span class="caret"></span>
+                            <i class="glyphicon glyphicon-user"></i> ${loginUser} <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="#"><i class="glyphicon glyphicon-cog"></i> 个人设置</a></li>
@@ -177,18 +177,6 @@
                             </tr>
                             </thead>
                             <tbody id="userData">
-                            <%--<tr>--%>
-                            <%--  <td>${status.count}</td>--%>
-                            <%--  <td><input type="checkbox"></td>--%>
-                            <%--  <td>${user.loginacct}</td>--%>
-                            <%--  <td>${user.username}</td>--%>
-                            <%--  <td>${user.email}</td>--%>
-                            <%--  <td>--%>
-                            <%--	  <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>--%>
-                            <%--	  <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>--%>
-                            <%--	  <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>--%>
-                            <%--  </td>--%>
-                            <%--</tr>--%>
                             </tbody>
                             <tfoot>
                             <tr>
@@ -244,6 +232,7 @@
                 $.each(users, function (i, user) {
                     let u = JSON.stringify(user);
                     let queryByidUrl = 'window.location.href="${APP_PATH}/pm/user/queryById?id=';
+                    let queryRoleByidUrl = 'window.location.href="${APP_PATH}/pm/role/assignRole?id=';
                     tableContext += '<tr>'
                     tableContext += '  <td>' + (i + 1) + '</td>'
                     tableContext += '  <td><input type="checkbox" name="id" value="' + user.id + '"></td>'
@@ -251,7 +240,7 @@
                     tableContext += ' <td>' + user.username + '</td>'
                     tableContext += ' <td>' + user.email + '</td>'
                     tableContext += '  <td>'
-                    tableContext += '	  <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>'
+                    tableContext += '	  <button type="button" class="btn btn-success btn-xs"  onclick=' + queryRoleByidUrl + user.id + '"><i class=" glyphicon glyphicon-check"></i></button>'
                     tableContext += '	  <button type="button" class="btn btn-primary btn-xs" onclick=' + queryByidUrl + user.id + '"><i class=" glyphicon glyphicon-pencil"></i></button>'
                     tableContext += '	  <button type="button" class="btn btn-danger btn-xs" onclick=\'deleteUser(' + u + ')\'><i class=" glyphicon glyphicon-remove"></i></button>'
                     tableContext += '  </td>'
